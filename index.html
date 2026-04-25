@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Gentry AI - Ultimate Assistant</title>
+    <style>
+        /* Stiluri extra pentru Wishlist */
+        .wishlist-container {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .product-card {
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid #d4af37;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        .product-card span { color: #d4af37; font-weight: bold; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="phone-container" style="height: 800px;"> <div class="logo">GENTRY</div>
+        
+        <div class="middle-section">
+            <input type="text" id="userName" placeholder="Numele tău..." 
+                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 10px; border-radius: 12px; width: 100%; margin-bottom: 10px; outline: none; text-align: center;">
+            
+            <input type="text" id="productLink" placeholder="Lipește link-ul aici..." 
+                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); color: white; padding: 12px; border-radius: 15px; width: 100%; margin-bottom: 15px; outline: none; text-align: center;">
+            
+            <h2 id="welcomeText" style="margin: 10px 0;">Bun venit,</h2>
+        </div>
+
+        <div id="chat-area" style="height: 120px;">
+            <em>Gentry: Introdu un link pentru a-l salva în listă.</em>
+        </div>
+
+        <button class="action-btn" onclick="runAgent()">SCANEAZĂ ȘI SALVEAZĂ</button>
+
+        <h4 style="color: #d4af37; margin-bottom: 10px; font-size: 14px; letter-spacing: 2px;">WISHLIST DE LUX</h4>
+        <div id="wishlist" class="wishlist-container">
+            </div>
+    </div>
+
+    <script>
+        // Încărcăm produsele salvate când se deschide pagina
+        window.onload = displayWishlist;
+
+        async function runAgent() {
+            const productUrl = document.getElementById('productLink').value;
+            const chat = document.getElementById('chat-area');
+            const btn = document.querySelector('.action-btn');
+
+            if (!productUrl) return;
+            btn.innerText = "SE SALVEAZĂ...";
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: productUrl })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === "Success") {
+                    saveToWishlist(data);
+                    chat.innerHTML = `<strong>Gentry:</strong> Produsul a fost adăugat cu succes în lista ta de priorități.`;
+                }
+                btn.innerText = "SCANEAZĂ ȘI SALVEAZĂ";
+                displayWishlist();
+            } catch (error) {
+                chat.innerHTML = "Eroare la conexiunea cu serverul.";
+                btn.innerText = "REÎNCEARCĂ";
+            }
+        }
+
+        function saveToWishlist(product) {
+            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
+            list.unshift(product); // Adaugă la începutul listei
+            localStorage.setItem('gentry_list', JSON.stringify(list));
+        }
+
+        function displayWishlist() {
+            const container = document.getElementById('wishlist');
+            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
+            
+            container.innerHTML = list.map(item => `
+                <div class="product-card">
+                    <div>${item.product_name}</div>
+                    <span>Preț: ${item.price} lei</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
