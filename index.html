@@ -10,25 +10,39 @@
         /* Stiluri extra pentru Wishlist */
         .wishlist-container {
             margin-top: 20px;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             padding-right: 5px;
         }
         .product-card {
             background: rgba(255,255,255,0.05);
             border-left: 3px solid #d4af37;
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-align: left;
         }
-        .product-card span { color: #d4af37; font-weight: bold; }
+        .product-card span { 
+            color: #d4af37; 
+            font-weight: bold; 
+            display: block;
+            margin-top: 5px;
+        }
+        .product-card a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 11px;
+            display: block;
+            margin-top: 5px;
+        }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="phone-container" style="height: 800px;"> <div class="logo">GENTRY</div>
+    <div class="phone-container" style="height: 850px;"> 
+        <div class="logo">GENTRY</div>
         
         <div class="middle-section">
             <input type="text" id="userName" placeholder="Numele tău..." 
@@ -40,19 +54,24 @@
             <h2 id="welcomeText" style="margin: 10px 0;">Bun venit,</h2>
         </div>
 
-        <div id="chat-area" style="height: 120px;">
-            <em>Gentry: Introdu un link pentru a-l salva în listă.</em>
+        <div id="chat-area" style="height: 100px; font-size: 14px;">
+            <em>Gentry: Introdu un link de pe eMAG pentru a-l analiza și salva.</em>
         </div>
 
         <button class="action-btn" onclick="runAgent()">SCANEAZĂ ȘI SALVEAZĂ</button>
 
-        <h4 style="color: #d4af37; margin-bottom: 10px; font-size: 14px; letter-spacing: 2px;">WISHLIST DE LUX</h4>
+        <h4 style="color: #d4af37; margin-top: 20px; margin-bottom: 10px; font-size: 14px; letter-spacing: 2px;">WISHLIST DE LUX</h4>
         <div id="wishlist" class="wishlist-container">
             </div>
     </div>
 
     <script>
-        // Încărcăm produsele salvate când se deschide pagina
+        // Actualizare nume în timp real
+        document.getElementById('userName').addEventListener('input', function() {
+            document.getElementById('welcomeText').innerText = "Bun venit, " + (this.value || "");
+        });
+
+        // Încărcăm produsele la start
         window.onload = displayWishlist;
 
         async function runAgent() {
@@ -60,11 +79,18 @@
             const chat = document.getElementById('chat-area');
             const btn = document.querySelector('.action-btn');
 
-            if (!productUrl) return;
-            btn.innerText = "SE SALVEAZĂ...";
+            if (!productUrl) {
+                chat.innerHTML = "Gentry: Te rog să adaugi un link valid.";
+                return;
+            }
+
+            btn.innerText = "SE ANALIZEAZĂ...";
+            btn.disabled = true;
+            chat.innerHTML = "Gentry: Verific prețul pe serverele eMAG...";
             
             try {
-                const response = await fetch('http://127.0.0.1:8000/analyze', {
+                // ADRESA TA OFICIALA DE PE RENDER
+                const response = await fetch('https://gentry-ai.onrender.com/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: productUrl })
@@ -74,19 +100,30 @@
                 
                 if (data.status === "Success") {
                     saveToWishlist(data);
-                    chat.innerHTML = `<strong>Gentry:</strong> Produsul a fost adăugat cu succes în lista ta de priorități.`;
+                    chat.innerHTML = `<strong>Gentry:</strong> Excelent! Am găsit produsul la prețul de ${data.price} lei.`;
+                    document.getElementById('productLink').value = ""; // Curăță input-ul
+                } else {
+                    chat.innerHTML = "Gentry: Nu am putut extrage datele. Verifică link-ul.";
                 }
-                btn.innerText = "SCANEAZĂ ȘI SALVEAZĂ";
-                displayWishlist();
             } catch (error) {
-                chat.innerHTML = "Eroare la conexiunea cu serverul.";
-                btn.innerText = "REÎNCEARCĂ";
+                chat.innerHTML = "Gentry: Serverul este ocupat. Te rog revino peste un moment.";
+                console.error(error);
+            } finally {
+                btn.innerText = "SCANEAZĂ ȘI SALVEAZĂ";
+                btn.disabled = false;
+                displayWishlist();
             }
         }
 
         function saveToWishlist(product) {
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            list.unshift(product); // Adaugă la începutul listei
+            // Salvăm și URL-ul pentru a putea da click pe el mai târziu
+            const newEntry = {
+                name: product.product_name,
+                price: product.price,
+                url: document.getElementById('productLink').value
+            };
+            list.unshift(newEntry);
             localStorage.setItem('gentry_list', JSON.stringify(list));
         }
 
@@ -94,10 +131,15 @@
             const container = document.getElementById('wishlist');
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
             
+            if (list.length === 0) {
+                container.innerHTML = "<div style='color: #666; font-size: 12px;'>Lista ta este goală.</div>";
+                return;
+            }
+
             container.innerHTML = list.map(item => `
                 <div class="product-card">
-                    <div>${item.product_name}</div>
-                    <span>Preț: ${item.price} lei</span>
+                    <div><strong>${item.name}</strong></div>
+                    <span>Preț Actual: ${item.price} lei</span>
                 </div>
             `).join('');
         }
