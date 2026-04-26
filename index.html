@@ -11,38 +11,53 @@
             margin-top: 20px;
             max-height: 400px;
             overflow-y: auto;
-            padding-right: 5px;
+            padding: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #d4af37 transparent;
         }
         .product-card {
-            background: rgba(255,255,255,0.07);
-            border-left: 3px solid #d4af37;
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 18px;
+            border-radius: 15px;
             margin-bottom: 15px;
             text-align: left;
-            transition: 0.3s;
+            animation: fadeIn 0.5s ease-in;
         }
-        .product-card:hover { background: rgba(255,255,255,0.1); }
-        .product-card strong { color: white; display: block; margin-bottom: 5px; font-size: 14px; }
-        .product-card span { color: #d4af37; font-weight: bold; font-size: 16px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* BUTONUL DE PROFIT */
+        .product-card strong { color: #fff; display: block; margin-bottom: 5px; font-size: 15px; line-height: 1.3; }
+        .product-card .price-tag { color: #d4af37; font-weight: bold; font-size: 18px; display: block; margin: 8px 0; }
+        
         .buy-btn {
             display: block;
-            background: #d4af37;
-            color: black !important;
+            background: linear-gradient(135deg, #d4af37 0%, #f2d479 100%);
+            color: #000 !important;
             text-align: center;
-            padding: 10px;
-            margin-top: 12px;
-            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+        
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top: 3px solid #d4af37;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -51,26 +66,25 @@
         
         <div class="middle-section">
             <input type="text" id="userName" placeholder="Numele tău..." 
-                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 10px; border-radius: 12px; width: 100%; margin-bottom: 10px; outline: none; text-align: center;">
+                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 12px; outline: none; text-align: center; font-family: 'Inter', sans-serif;">
             
-            <input type="text" id="productLink" placeholder="Lipește link-ul produsului..." 
-                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); color: white; padding: 12px; border-radius: 15px; width: 100%; margin-bottom: 15px; outline: none; text-align: center;">
+            <input type="text" id="productLink" placeholder="Lipește link-ul eMAG aici..." 
+                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); color: white; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 20px; outline: none; text-align: center;">
             
-            <h2 id="welcomeText" style="margin: 10px 0;">Bun venit,</h2>
+            <h2 id="welcomeText" style="margin: 10px 0; font-family: 'Playfair Display', serif;">Bun venit,</h2>
         </div>
 
-        <div id="chat-area" style="height: 100px; font-size: 14px; color: #ccc; padding: 0 10px;">
-            <em>Gentry: Introdu un link pentru a începe analiza de piață.</em>
+        <div id="chat-area" style="min-height: 80px; font-size: 14px; color: #ddd; padding: 10px 20px; line-height: 1.5;">
+            <em>Gentry: Sunt pregătit să îți analizez selecțiile de lux. Introdu un link.</em>
         </div>
 
-        <button class="action-btn" onclick="runAgent()">SCANEAZĂ PRODUSUL</button>
+        <button class="action-btn" id="mainBtn" onclick="runAgent()">SCANEAZĂ PRODUSUL</button>
 
-        <h4 style="color: #d4af37; margin-top: 25px; margin-bottom: 15px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;">Portofoliu Produse</h4>
+        <h4 style="color: #d4af37; margin-top: 30px; margin-bottom: 15px; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.8;">Portofoliu Produse</h4>
         <div id="wishlist" class="wishlist-container"></div>
     </div>
 
     <script>
-        // Salut personalizat
         document.getElementById('userName').addEventListener('input', function() {
             document.getElementById('welcomeText').innerText = "Bun venit, " + (this.value || "");
         });
@@ -80,19 +94,18 @@
         async function runAgent() {
             const productUrl = document.getElementById('productLink').value;
             const chat = document.getElementById('chat-area');
-            const btn = document.querySelector('.action-btn');
+            const btn = document.getElementById('mainBtn');
 
             if (!productUrl) {
-                chat.innerHTML = "Gentry: Te rog să introduci un link.";
+                chat.innerHTML = "Gentry: Te rog să îmi oferi un link de produs.";
                 return;
             }
 
-            btn.innerText = "SE ANALIZEAZĂ...";
             btn.disabled = true;
-            chat.innerHTML = "Gentry: Verific disponibilitatea și prețul actual...";
+            btn.innerHTML = '<span class="loader"></span> ANALIZĂ ÎN CURS...';
+            chat.innerHTML = "Gentry: Verific bazele de date eMAG pentru cel mai bun preț...";
             
             try {
-                // Link-ul tău de pe Render
                 const response = await fetch('https://gentry-ai.onrender.com/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -102,30 +115,27 @@
                 const data = await response.json();
                 
                 if (data.status === "Success") {
-                    saveToWishlist(data, productUrl);
-                    chat.innerHTML = `<strong>Gentry:</strong> Analiză completă. Produsul este disponibil la <strong>${data.price} lei</strong>. L-am salvat în portofoliu.`;
+                    // Curățăm prețul în caz că vine cu text extra
+                    let cleanPrice = data.price.toString().replace(/[^0-9,.]/g, '');
+                    saveToWishlist(data.product_name, cleanPrice, productUrl);
+                    
+                    chat.innerHTML = `<strong>Gentry:</strong> Excelent! Am găsit produsul la prețul de <strong>${cleanPrice} lei</strong>. L-am adăugat în portofoliul tău.`;
                     document.getElementById('productLink').value = "";
                 } else {
-                    chat.innerHTML = "Gentry: Nu am putut procesa acest link. Încearcă un link de eMAG.";
+                    chat.innerHTML = "Gentry: Link-ul nu pare valid sau produsul nu este în stoc.";
                 }
             } catch (error) {
-                chat.innerHTML = "Gentry: Conexiunea cu serverul a fost întreruptă. Încearcă din nou.";
+                chat.innerHTML = "Gentry: Serverul este sub asediu. Te rog reîncearcă în câteva secunde.";
             } finally {
-                btn.innerText = "SCANEAZĂ PRODUSUL";
                 btn.disabled = false;
+                btn.innerText = "SCANEAZĂ PRODUSUL";
                 displayWishlist();
             }
         }
 
-        function saveToWishlist(product, originalUrl) {
+        function saveToWishlist(name, price, url) {
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            const newEntry = {
-                name: product.product_name,
-                price: product.price,
-                url: originalUrl,
-                date: new Date().toLocaleDateString()
-            };
-            list.unshift(newEntry);
+            list.unshift({ name, price, url });
             localStorage.setItem('gentry_list', JSON.stringify(list));
         }
 
@@ -134,17 +144,15 @@
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
             
             if (list.length === 0) {
-                container.innerHTML = "<div style='color: #666; font-size: 12px; text-align: center;'>Nu ai produse scanate încă.</div>";
+                container.innerHTML = "<div style='color: #666; font-size: 12px; text-align: center; margin-top: 20px;'>Portofoliul tău este gol momentan.</div>";
                 return;
             }
 
             container.innerHTML = list.map(item => `
                 <div class="product-card">
                     <strong>${item.name}</strong>
-                    <span>${item.price} lei</span>
-                    <a href="${item.url}" target="_blank" class="buy-btn">
-                        Cumpără prin Gentry
-                    </a>
+                    <span class="price-tag">${item.price} lei</span>
+                    <a href="${item.url}" target="_blank" class="buy-btn">Cumpără prin Gentry</a>
                 </div>
             `).join('');
         }
