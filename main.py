@@ -4,10 +4,10 @@ from pydantic import BaseModel
 import httpx
 from bs4 import BeautifulSoup
 from fastapi.middleware.cors import CORSMiddleware
+import re
 
 app = FastAPI()
 
-# Permitem site-ului tău de pe GitHub să vorbească cu acest server
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,47 +21,45 @@ class ProductRequest(BaseModel):
 @app.post("/analyze")
 async def analyze_product(request: ProductRequest):
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "Accept-Language": "ro-RO,ro;q=0.9,en-US;q=0.8,en;q=0.7"
     }
     
     try:
-        async with httpx.AsyncClient(follow_redirects=True, timeout=15.0) as client:
+        async with httpx.AsyncClient(follow_redirects=True, timeout=20.0) as client:
             response = await client.get(request.url, headers=headers)
             
         if response.status_code != 200:
-            raise HTTPException(status_code=400, detail="Nu am putut accesa pagina eMAG.")
+            raise HTTPException(status_code=400, detail="Pagina eMAG nu poate fi accesată.")
 
         soup = BeautifulSoup(response.text, "html.parser")
         
-        # EXTRAGERE NUME PRODUS
+        # 1. EXTRAGERE NUME
         name_tag = soup.find("h1", {"class": "page-title"})
-        product_name = name_tag.get_text(strip=True) if name_tag else "Produs Necunoscut"
+        product_name = name_tag.get_text(strip=True) if name_tag else "Produs de Lux"
         
-        # EXTRAGERE PREȚ (Metodă multiplă pentru siguranță)
+        # 2. EXTRAGERE PREȚ (Metoda de siguranță maximă)
         price = "N/A"
         
-        # Încercăm prima metodă (clasa principală de preț)
-        price_tag = soup.find("p", {"class": "product-new-price"})
-        if price_tag:
-            # Luăm doar textul, eliminăm "lei" și curățăm spațiile
-            price_text = price_tag.get_text(strip=True).lower().replace("lei", "").replace(".", "")
-            # Dacă există zecimale în tag-uri separate, le unim
-            sup = price_tag.find("sup")
-            if sup:
-                main_price = price_text.replace(sup.get_text(strip=True).lower(), "")
-                price = f"{main_price},{sup.get_text(strip=True)}"
-            else:
-                price = price_text
+        # Căutăm în tag-ul principal de preț
+        price_container = soup.find("p", {"class": "product-new-price"})
+        if price_container:
+            # Eliminăm textul inutil și păstrăm doar cifrele
+            raw_text = price_container.get_text(strip=True)
+            # Folosim REGEX pentru a extrage doar numerele (ex: 1.250,99 lei devine 1250,99)
+            match = re.search(r"(\d+[\d\.,]*)", raw_text)
+            if match:
+                price = match.group(1)
 
-        # Dacă prima metodă a eșuat, căutăm în meta tag-uri (invizibile, dar precise)
+        # Dacă e încă N/A, verificăm Meta-Tags (datele din spatele paginii)
         if price == "N/A":
-            meta_price = soup.find("meta", {"property": "product:price:amount"})
-            if meta_price:
-                price = meta_price["content"]
+            meta_p = soup.find("meta", {"property": "product:price:amount"})
+            if meta_p:
+                price = meta_p["content"]
 
         return {
             "status": "Success",
-            "product_name": product_name[:50] + "...",
+            "product_name": product_name[:45] + "...",
             "price": price
         }
 
