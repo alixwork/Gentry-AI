@@ -1,73 +1,74 @@
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import requests
-from bs4 import BeautifulSoup
-import re
 import os
-import uvicorn
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import httpx
+from bs4 import BeautifulSoup
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Configurare CORS - Permite aplicației tale să fie accesată de pe orice domeniu
+# Permitem site-ului tău de pe GitHub să vorbească cu acest server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class ProductLink(BaseModel):
+class ProductRequest(BaseModel):
     url: str
 
-def extract_price(soup):
-    """Funcție care scanează codul paginii pentru a găsi prețul în lei/RON."""
-    text_content = soup.get_text()
-    # Căutăm tipare numerice urmate de lei sau RON
-    price_pattern = re.findall(r'(\d+[\d\s.,]*)\s*(?:lei|RON)', text_content, re.IGNORECASE)
-    if price_pattern:
-        # Curățăm caracterele invizibile și spațiile extra
-        clean_price = price_pattern[0].replace('\xa0', ' ').strip()
-        return clean_price
-    return "N/A"
-
 @app.post("/analyze")
-async def analyze_link(data: ProductLink):
+async def analyze_product(request: ProductRequest):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    
     try:
-        # User-Agent-ul păcălește site-urile să creadă că ești un browser real, nu un robot
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-        }
+        async with httpx.AsyncClient(follow_redirects=True, timeout=15.0) as client:
+            response = await client.get(request.url, headers=headers)
+            
+        if response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Nu am putut accesa pagina eMAG.")
+
+        soup = BeautifulSoup(response.text, "html.parser")
         
-        response = requests.get(data.url, headers=headers, timeout=15)
-        response.raise_for_status() # Verifică dacă pagina s-a încărcat corect
+        # EXTRAGERE NUME PRODUS
+        name_tag = soup.find("h1", {"class": "page-title"})
+        product_name = name_tag.get_text(strip=True) if name_tag else "Produs Necunoscut"
         
-        soup = BeautifulSoup(response.text, 'html.parser')
+        # EXTRAGERE PREȚ (Metodă multiplă pentru siguranță)
+        price = "N/A"
         
-        # Extragem titlul paginii și îl scurtăm pentru cardurile de wishlist
-        full_title = soup.title.string if soup.title else "Produs Necunoscut"
-        short_title = full_title.split('-')[0].split('|')[0].strip()[:45] + "..."
-        
-        # Extragem prețul folosind funcția de mai sus
-        price = extract_price(soup)
-        
+        # Încercăm prima metodă (clasa principală de preț)
+        price_tag = soup.find("p", {"class": "product-new-price"})
+        if price_tag:
+            # Luăm doar textul, eliminăm "lei" și curățăm spațiile
+            price_text = price_tag.get_text(strip=True).lower().replace("lei", "").replace(".", "")
+            # Dacă există zecimale în tag-uri separate, le unim
+            sup = price_tag.find("sup")
+            if sup:
+                main_price = price_text.replace(sup.get_text(strip=True).lower(), "")
+                price = f"{main_price},{sup.get_text(strip=True)}"
+            else:
+                price = price_text
+
+        # Dacă prima metodă a eșuat, căutăm în meta tag-uri (invizibile, dar precise)
+        if price == "N/A":
+            meta_price = soup.find("meta", {"property": "product:price:amount"})
+            if meta_price:
+                price = meta_price["content"]
+
         return {
             "status": "Success",
-            "product_name": short_title,
-            "price": price,
-            "url": data.url,
-            "agent_message": "Analiză Gentry finalizată cu succes."
-        }
-    except Exception as e:
-        return {
-            "status": "Error", 
-            "message": f"Gentry nu a putut accesa link-ul. Motiv: {str(e)}"
+            "product_name": product_name[:50] + "...",
+            "price": price
         }
 
-# Această parte este esențială pentru serverele de hosting (Railway, Render, Heroku)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
 if __name__ == "__main__":
-    # Citim portul de la server, sau folosim 8000 dacă rulăm local
     port = int(os.environ.get("PORT", 8000))
-    # Rulăm pe 0.0.0.0 pentru a fi vizibil pe internet
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=port)
