@@ -9,7 +9,7 @@
     <style>
         .wishlist-container {
             margin-top: 20px;
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
             padding: 10px;
             scrollbar-width: thin;
@@ -23,38 +23,60 @@
             border-radius: 15px;
             margin-bottom: 15px;
             text-align: left;
+            position: relative;
             animation: fadeIn 0.5s ease-in;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .product-card strong { color: #fff; display: block; margin-bottom: 5px; font-size: 15px; line-height: 1.3; }
-        .product-card .price-tag { color: #d4af37; font-weight: bold; font-size: 18px; display: block; margin: 8px 0; }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .delete-btn:hover { color: #ff4444; }
+
+        .product-card strong { color: #fff; display: block; margin-bottom: 5px; font-size: 14px; padding-right: 20px; }
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 18px; display: block; margin: 5px 0; }
         
+        .verdict-box {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+        }
+
         .buy-btn {
             display: block;
             background: linear-gradient(135deg, #d4af37 0%, #f2d479 100%);
             color: #000 !important;
             text-align: center;
             padding: 12px;
-            margin-top: 10px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
         
-        /* Loading Spinner */
         .loader {
-            border: 3px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.1);
             border-radius: 50%;
-            border-top: 3px solid #d4af37;
-            width: 20px;
-            height: 20px;
+            border-top: 2px solid #d4af37;
+            width: 16px;
+            height: 16px;
             animation: spin 1s linear infinite;
             display: inline-block;
-            margin-right: 10px;
+            margin-right: 8px;
             vertical-align: middle;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -66,7 +88,7 @@
         
         <div class="middle-section">
             <input type="text" id="userName" placeholder="Numele tău..." 
-                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 12px; outline: none; text-align: center; font-family: 'Inter', sans-serif;">
+                   style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 12px; outline: none; text-align: center;">
             
             <input type="text" id="productLink" placeholder="Lipește link-ul eMAG aici..." 
                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); color: white; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 20px; outline: none; text-align: center;">
@@ -74,13 +96,13 @@
             <h2 id="welcomeText" style="margin: 10px 0; font-family: 'Playfair Display', serif;">Bun venit,</h2>
         </div>
 
-        <div id="chat-area" style="min-height: 80px; font-size: 14px; color: #ddd; padding: 10px 20px; line-height: 1.5;">
-            <em>Gentry: Sunt pregătit să îți analizez selecțiile de lux. Introdu un link.</em>
+        <div id="chat-area" style="min-height: 80px; font-size: 13px; color: #bbb; padding: 10px 20px; line-height: 1.4;">
+            <em>Gentry: Introdu un link pentru a începe analiza de profitabilitate.</em>
         </div>
 
         <button class="action-btn" id="mainBtn" onclick="runAgent()">SCANEAZĂ PRODUSUL</button>
 
-        <h4 style="color: #d4af37; margin-top: 30px; margin-bottom: 15px; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.8;">Portofoliu Produse</h4>
+        <h4 style="color: #d4af37; margin-top: 30px; margin-bottom: 10px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7;">Monitorizare Portofoliu</h4>
         <div id="wishlist" class="wishlist-container"></div>
     </div>
 
@@ -97,13 +119,12 @@
             const btn = document.getElementById('mainBtn');
 
             if (!productUrl) {
-                chat.innerHTML = "Gentry: Te rog să îmi oferi un link de produs.";
+                chat.innerHTML = "Gentry: Te rog să introduci un link valid.";
                 return;
             }
 
             btn.disabled = true;
-            btn.innerHTML = '<span class="loader"></span> ANALIZĂ ÎN CURS...';
-            chat.innerHTML = "Gentry: Verific bazele de date eMAG pentru cel mai bun preț...";
+            btn.innerHTML = '<span class="loader"></span> ANALIZĂ...';
             
             try {
                 const response = await fetch('https://gentry-ai.onrender.com/analyze', {
@@ -115,17 +136,14 @@
                 const data = await response.json();
                 
                 if (data.status === "Success") {
-                    // Curățăm prețul în caz că vine cu text extra
-                    let cleanPrice = data.price.toString().replace(/[^0-9,.]/g, '');
-                    saveToWishlist(data.product_name, cleanPrice, productUrl);
-                    
-                    chat.innerHTML = `<strong>Gentry:</strong> Excelent! Am găsit produsul la prețul de <strong>${cleanPrice} lei</strong>. L-am adăugat în portofoliul tău.`;
+                    saveToWishlist(data.product_name, data.price, productUrl);
+                    chat.innerHTML = `<strong>Gentry:</strong> Analiză finalizată pentru <strong>${data.price} lei</strong>. Verdictul a fost actualizat în portofoliu.`;
                     document.getElementById('productLink').value = "";
                 } else {
-                    chat.innerHTML = "Gentry: Link-ul nu pare valid sau produsul nu este în stoc.";
+                    chat.innerHTML = "Gentry: Nu am putut accesa datele acestui produs.";
                 }
             } catch (error) {
-                chat.innerHTML = "Gentry: Serverul este sub asediu. Te rog reîncearcă în câteva secunde.";
+                chat.innerHTML = "Gentry: Eroare de conexiune cu serverul central.";
             } finally {
                 btn.disabled = false;
                 btn.innerText = "SCANEAZĂ PRODUSUL";
@@ -135,8 +153,41 @@
 
         function saveToWishlist(name, price, url) {
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            list.unshift({ name, price, url });
+            let newPriceNum = parseFloat(price.replace(/[^\d,]/g, '').replace(',', '.'));
+            
+            let existingIndex = list.findIndex(item => item.url === url);
+            let verdict = "Analiză inițială: Preț stabil";
+            let color = "#d4af37";
+
+            if (existingIndex !== -1) {
+                let oldPriceNum = parseFloat(list[existingIndex].price.replace(/[^\d,]/g, '').replace(',', '.'));
+                
+                if (newPriceNum < oldPriceNum) {
+                    verdict = "VERDICT: CUMPĂRĂ ACUM (Preț scăzut!)";
+                    color = "#00ff88";
+                } else if (newPriceNum > oldPriceNum) {
+                    verdict = "VERDICT: AȘTEAPTĂ (Prețul a crescut)";
+                    color = "#ff4444";
+                } else {
+                    verdict = "VERDICT: Preț neschimbat";
+                    color = "#d4af37";
+                }
+                // Actualizăm produsul existent
+                list[existingIndex].price = price;
+                list[existingIndex].verdict = verdict;
+                list[existingIndex].color = color;
+            } else {
+                list.unshift({ name, price, url, verdict, color });
+            }
+            
             localStorage.setItem('gentry_list', JSON.stringify(list));
+        }
+
+        function removeFromList(index) {
+            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
+            list.splice(index, 1);
+            localStorage.setItem('gentry_list', JSON.stringify(list));
+            displayWishlist();
         }
 
         function displayWishlist() {
@@ -144,14 +195,16 @@
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
             
             if (list.length === 0) {
-                container.innerHTML = "<div style='color: #666; font-size: 12px; text-align: center; margin-top: 20px;'>Portofoliul tău este gol momentan.</div>";
+                container.innerHTML = "<div style='color: #555; font-size: 11px; text-align: center; margin-top: 20px;'>Niciun produs în monitorizare.</div>";
                 return;
             }
 
-            container.innerHTML = list.map(item => `
+            container.innerHTML = list.map((item, index) => `
                 <div class="product-card">
+                    <span class="delete-btn" onclick="removeFromList(${index})">&times;</span>
                     <strong>${item.name}</strong>
                     <span class="price-tag">${item.price} lei</span>
+                    <div class="verdict-box" style="color: ${item.color}">${item.verdict}</div>
                     <a href="${item.url}" target="_blank" class="buy-btn">Cumpără prin Gentry</a>
                 </div>
             `).join('');
