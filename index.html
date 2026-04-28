@@ -7,19 +7,107 @@
     <title>Gentry AI - Concierge Digital</title>
     <style>
         body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .phone-container { width: 360px; height: 780px; background: #111; border: 8px solid #222; border-radius: 40px; position: relative; padding: 20px; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .logo { text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 5px; color: #d4af37; margin-top: 20px; margin-bottom: 30px; }
-        input { background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 12px; outline: none; text-align: center; box-sizing: border-box; }
+        
+        .phone-container { 
+            width: 360px; 
+            height: 780px; 
+            background: #111; 
+            border: 8px solid #222; 
+            border-radius: 40px; 
+            position: relative; 
+            padding: 20px; 
+            box-sizing: border-box; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+        }
+
+        .logo { text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 5px; color: #d4af37; margin-top: 20px; margin-bottom: 25px; }
+        
+        input { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(212, 175, 55, 0.2); 
+            color: white; 
+            padding: 14px; 
+            border-radius: 15px; 
+            width: 100%; 
+            margin-bottom: 12px; 
+            outline: none; 
+            text-align: center; 
+            box-sizing: border-box; 
+            font-size: 13px;
+        }
+
         h2 { font-family: 'Playfair Display', serif; text-align: center; font-size: 18px; margin: 10px 0; color: #fff; }
+        
         #chat-area { min-height: 60px; font-size: 12px; color: #bbb; text-align: center; padding: 10px; line-height: 1.4; }
-        .action-btn { background: linear-gradient(135deg, #d4af37 0%, #f2d479 100%); color: black; border: none; padding: 15px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
-        .wishlist-container { margin-top: 20px; flex-grow: 1; overflow-y: auto; padding-bottom: 10px; }
-        .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 15px; margin-bottom: 12px; position: relative; }
-        .delete-btn { position: absolute; top: 10px; right: 12px; color: #ff4444; cursor: pointer; font-size: 18px; font-weight: bold; }
+        
+        .action-btn { 
+            background: linear-gradient(135deg, #d4af37 0%, #f2d479 100%); 
+            color: black; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 15px; 
+            width: 100%; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            margin-top: 5px; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Zona de Alerte */
+        .alert-section {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .wishlist-container { margin-top: 20px; flex-grow: 1; overflow-y: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .wishlist-container::-webkit-scrollbar { display: none; }
+
+        .product-card { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(212, 175, 55, 0.1); 
+            padding: 15px; 
+            border-radius: 15px; 
+            margin-bottom: 12px; 
+            position: relative; 
+        }
+
+        .delete-btn { 
+            position: absolute; 
+            top: 10px; 
+            right: 12px; 
+            color: #ff4444; 
+            cursor: pointer; 
+            font-size: 20px; 
+            font-weight: bold; 
+            opacity: 0.6;
+        }
+        .delete-btn:hover { opacity: 1; }
+
         .product-card strong { display: block; font-size: 13px; margin-bottom: 5px; color: #ddd; padding-right: 25px; }
-        .price-tag { color: #d4af37; font-weight: bold; font-size: 16px; display: block; margin-bottom: 5px; }
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 17px; display: block; margin-bottom: 5px; }
         .verdict-box { font-size: 10px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .buy-btn { display: block; background: rgba(212, 175, 55, 0.1); color: #d4af37; text-align: center; padding: 10px; border-radius: 10px; text-decoration: none; font-size: 11px; border: 1px solid #d4af37; font-weight: bold; }
+        
+        .buy-btn { 
+            display: block; 
+            background: rgba(212, 175, 55, 0.1); 
+            color: #d4af37; 
+            text-align: center; 
+            padding: 10px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-size: 11px; 
+            border: 1px solid #d4af37; 
+            font-weight: bold; 
+        }
+
         .loader { border: 2px solid rgba(0,0,0,0.1); border-top: 2px solid black; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -28,21 +116,33 @@
 
     <div class="phone-container">
         <div class="logo">GENTRY</div>
+        
         <input type="text" id="userName" placeholder="Numele tău...">
         <input type="text" id="productLink" placeholder="Lipește link eMAG aici...">
+        
         <h2 id="welcomeText">Bun venit,</h2>
-        <div id="chat-area"><em>Gentry: Introdu un link pentru a începe analiza.</em></div>
+        <div id="chat-area"><em>Gentry: Introdu un link pentru a începe analiza de profitabilitate.</em></div>
+        
         <button class="action-btn" id="mainBtn" onclick="runAgent()">Scanează Produsul</button>
-        <h4 style="color: #d4af37; font-size: 10px; letter-spacing: 2px; margin-top: 20px; text-transform: uppercase;">Portofoliu Monitorizat</h4>
+
+        <div class="alert-section">
+            <span style="font-size: 10px; color: #d4af37; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 8px;">Alerte Scădere Preț</span>
+            <input type="text" id="userContact" placeholder="WhatsApp sau Email..." style="margin-bottom: 8px; padding: 8px; font-size: 11px;">
+            <button onclick="subscribeAlert()" style="background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 5px 12px; border-radius: 8px; font-size: 9px; cursor: pointer; font-weight: bold;">NOTIFICĂ-MĂ</button>
+        </div>
+
+        <h4 style="color: #d4af37; font-size: 10px; letter-spacing: 2px; margin-top: 20px; text-transform: uppercase; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 5px;">Portofoliu Monitorizat</h4>
+        
         <div id="wishlist" class="wishlist-container"></div>
     </div>
 
     <script>
-        // Sincronizare nume
+        // Sincronizare nume utilizator
         document.getElementById('userName').addEventListener('input', function() {
-            document.getElementById('welcomeText').innerText = "Bun venit, " + this.value;
+            document.getElementById('welcomeText').innerText = "Bun venit, " + (this.value || "");
         });
 
+        // Încarcă lista la pornire
         window.onload = displayWishlist;
 
         async function runAgent() {
@@ -51,7 +151,7 @@
             const btn = document.getElementById('mainBtn');
 
             if (!productUrl) {
-                chat.innerHTML = "Gentry: Te rog să pui un link.";
+                chat.innerHTML = "Gentry: Te rog să introduci un link.";
                 return;
             }
 
@@ -69,7 +169,7 @@
                 
                 if (data.status === "Success") {
                     saveToWishlist(data.product_name, data.price, productUrl);
-                    chat.innerHTML = "Gentry: Am găsit produsul și l-am adăugat!";
+                    chat.innerHTML = "Gentry: Am găsit produsul și l-am actualizat în listă!";
                 } else {
                     handleManual(productUrl);
                 }
@@ -84,9 +184,9 @@
         }
 
         function handleManual(url) {
-            document.getElementById('chat-area').innerHTML = "Gentry: Server ocupat. Salvează manual datele.";
+            document.getElementById('chat-area').innerHTML = "Gentry: Server ocupat. Salvează datele manual.";
             let n = prompt("Nume produs:");
-            let p = prompt("Preț (cifre):");
+            let p = prompt("Preț actual (doar cifre):");
             if (n && p) saveToWishlist(n, p, url);
         }
 
@@ -94,21 +194,36 @@
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
             let newP = parseFloat(price.toString().replace(/[^\d.]/g, '').replace(',', '.'));
             
-            let verdict = "Preț Stabil";
+            let verdict = "PREȚ STABIL";
             let color = "#d4af37";
             
             let idx = list.findIndex(i => i.url === url);
+            
             if (idx !== -1) {
                 let oldP = parseFloat(list[idx].price.toString().replace(/[^\d.]/g, '').replace(',', '.'));
-                if (newP < oldP) { verdict = "CUMPĂRĂ (Ieftinit!)"; color = "#00ff88"; }
-                else if (newP > oldP) { verdict = "AȘTEAPTĂ (Scumpit)"; color = "#ff4444"; }
+                if (newP < oldP) { 
+                    verdict = "VERDICT: CUMPĂRĂ (Ieftinit!)"; 
+                    color = "#00ff88"; 
+                } else if (newP > oldP) { 
+                    verdict = "VERDICT: AȘTEAPTĂ (Scumpit)"; 
+                    color = "#ff4444"; 
+                }
                 list[idx].price = price;
                 list[idx].verdict = verdict;
                 list[idx].color = color;
             } else {
                 list.unshift({ name, price, url, verdict, color });
             }
+            
             localStorage.setItem('gentry_list', JSON.stringify(list));
+        }
+
+        function subscribeAlert() {
+            const contact = document.getElementById('userContact').value;
+            if(contact) {
+                alert("Gentry: Perfect! Te vom anunța pe " + contact + " când scad prețurile.");
+                document.getElementById('userContact').value = "";
+            }
         }
 
         function removeFromList(index) {
@@ -121,16 +236,18 @@
         function displayWishlist() {
             const cont = document.getElementById('wishlist');
             let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
+            
             if (list.length === 0) {
-                cont.innerHTML = "<div style='color:#444; font-size:11px; text-align:center; margin-top:20px;'>Niciun produs scanat.</div>";
+                cont.innerHTML = "<div style='color:#444; font-size:11px; text-align:center; margin-top:30px;'>Portofoliul tău este gol.</div>";
                 return;
             }
+
             cont.innerHTML = list.map((item, i) => `
                 <div class="product-card">
                     <span class="delete-btn" onclick="removeFromList(${i})">&times;</span>
                     <strong>${item.name}</strong>
                     <span class="price-tag">${item.price} lei</span>
-                    <div class="verdict-box" style="color: ${item.color}">${item.verdict || 'Analiză activă'}</div>
+                    <div class="verdict-box" style="color: ${item.color}">${item.verdict || 'ANALIZĂ ACTIVĂ'}</div>
                     <a href="${item.url}" target="_blank" class="buy-btn">CUMPĂRĂ PRIN GENTRY</a>
                 </div>
             `).join('');
