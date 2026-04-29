@@ -3,81 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gentry AI - Monitorizare Prețuri Smart</title>
+    <title>Gentry AI - Portalul tău de cumpărături inteligente</title>
     <style>
         :root {
             --primary: #6200ee;
             --bg: #0a0a0a;
             --card: #1e1e1e;
             --text: #ffffff;
+            --accent: #03dac6;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        header { text-align: center; padding: 40px 0; }
-        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
-        .container { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #333; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .price { font-size: 1.5rem; color: #03dac6; margin: 15px 0; }
-        .buy-button { 
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        header { text-align: center; padding: 60px 20px; background: linear-gradient(180deg, #121212 0%, #0a0a0a 100%); }
+        h1 { color: var(--primary); font-size: 3rem; margin: 0; letter-spacing: 2px; }
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 10px; }
+        
+        .container { max-width: 1100px; margin: -40px auto 40px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .merchant-card { background: var(--card); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid #333; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .merchant-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(98, 0, 238, 0.2); }
+        
+        .status-badge { position: absolute; top: 15px; right: 15px; background: rgba(3, 218, 198, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--accent); }
+        
+        h2 { margin: 20px 0 10px; font-size: 1.5rem; }
+        p { color: #aaa; line-height: 1.6; min-height: 50px; }
+        
+        .main-button { 
             display: inline-block; 
             background: var(--primary); 
             color: white; 
             text-decoration: none; 
-            padding: 12px 25px; 
-            border-radius: 25px; 
-            font-weight: bold;
-            transition: opacity 0.3s;
+            padding: 15px 35px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            margin-top: 20px;
+            transition: all 0.3s;
+            width: 80%;
         }
-        .buy-button:hover { opacity: 0.8; }
-        .badge { background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 10px; display: inline-block; }
+        .main-button:hover { background: #7722ff; letter-spacing: 1px; }
+        
+        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #1a1a1a; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>GENTRY AI</h1>
-    <p>Monitorizăm cele mai bune prețuri pentru tine.</p>
+    <p class="subtitle">Sistem inteligent de redirecționare către cele mai bune oferte din România</p>
 </header>
 
 <div class="container">
-    <div class="card">
-        <div class="badge">9 Zile Timp de Plată</div>
-        <img src="https://bazarulonline.ro/wp-content/uploads/2023/10/sapun-lichid-gold.jpg" alt="Sapun" style="width:100%; border-radius:10px; max-height:200px; object-fit:contain;">
-        <h3>Săpun Lichid Gentle Gold 500ml</h3>
-        <p>Curățare și hidratare cu aromă premium.</p>
-        <div class="price">Preț Special</div>
-        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/sapun-lichid-gentle-hidratant-gold-500-ml-engros-bax/" 
+    <div class="merchant-card">
+        <div class="status-badge">PARTENER ACTIV</div>
+        <h2>Bazarul Online</h2>
+        <p>Explorează mii de produse de la cel mai mare mall online. Profită de prețuri de depozit la orice comandă.</p>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/" 
            target="_blank" 
-           class="buy-button">
-           CUMPĂRĂ PRIN GENTRY
+           class="main-button">
+           CUMPĂRĂ ORICE DE AICI
         </a>
     </div>
 
-    <div class="card">
-        <div class="badge">În așteptare aprobare</div>
-        <div style="height:200px; display:flex; align-items:center; justify-content:center; background:#333; border-radius:10px;">
-            <span>Imagine Produs</span>
-        </div>
-        <h3>Produs Fashion / Books</h3>
-        <p>Aici vom pune un produs de la următorul magazin aprobat.</p>
-        <div class="price">-- lei</div>
-        <a href="#" class="buy-button" style="background:#555;">ÎN CURÂND</a>
+    <div class="merchant-card" style="opacity: 0.7;">
+        <div class="status-badge" style="color: #ffb74d; border-color: #ffb74d; background: none;">ÎN CURÂND</div>
+        <h2>Fashion & Style</h2>
+        <p>Monitorizăm aprobările pentru Fashion Days și Bookzone. Revenim imediat ce parteneriatul este activ.</p>
+        <a href="#" class="main-button" style="background: #333; cursor: not-allowed;">MONITORIZARE ACTIVĂ</a>
     </div>
 
-    <div class="card">
-        <div class="badge">În așteptare aprobare</div>
-        <div style="height:200px; display:flex; align-items:center; justify-content:center; background:#333; border-radius:10px;">
-            <span>Imagine Produs</span>
-        </div>
-        <h3>Produs Health & Beauty</h3>
-        <p>Monitorizăm stocul și prețul pentru tine.</p>
-        <div class="price">-- lei</div>
-        <a href="#" class="buy-button" style="background:#555;">ÎN CURÂND</a>
+    <div class="merchant-card" style="opacity: 0.7;">
+        <div class="status-badge" style="color: #ffb74d; border-color: #ffb74d; background: none;">ÎN CURÂND</div>
+        <h2>Beauty & Health</h2>
+        <p>Conectăm sistemul Gentry AI la BestValue și Spring Farma pentru oferte de lux și sănătate.</p>
+        <a href="#" class="main-button" style="background: #333; cursor: not-allowed;">MONITORIZARE ACTIVĂ</a>
     </div>
 </div>
 
-<footer style="text-align:center; margin-top:50px; color:#666;">
-    <p>&copy; 2026 Gentry AI - Sanda's Affiliate Project</p>
+<footer>
+    <p>&copy; 2026 Gentry AI. Toate drepturile rezervate. <br> Creat de Sanda prin sistemul de afiliere 2Performant.</p>
 </footer>
 
 </body>
