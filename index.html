@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gentry AI - Portalul tău de cumpărături inteligente</title>
+    
+    LIPEȘTE_AICI_TAG_UL_HTML_DE_LA_GOOGLE
+
+    <title>Gentry AI - Portal Inteligent de Cumpărături</title>
     <style>
         :root {
             --primary: #6200ee;
@@ -19,13 +22,13 @@
         
         .container { max-width: 1100px; margin: -40px auto 40px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         
-        .merchant-card { background: var(--card); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid #333; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .merchant-card { background: var(--card); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid #333; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 250px; }
         .merchant-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(98, 0, 238, 0.2); }
         
         .status-badge { position: absolute; top: 15px; right: 15px; background: rgba(3, 218, 198, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--accent); }
         
         h2 { margin: 20px 0 10px; font-size: 1.5rem; }
-        p { color: #aaa; line-height: 1.6; min-height: 50px; }
+        .desc { color: #aaa; line-height: 1.6; margin-bottom: 20px; }
         
         .main-button { 
             display: inline-block; 
@@ -35,11 +38,16 @@
             padding: 15px 35px; 
             border-radius: 30px; 
             font-weight: bold; 
-            margin-top: 20px;
             transition: all 0.3s;
             width: 80%;
+            align-self: center;
         }
-        .main-button:hover { background: #7722ff; letter-spacing: 1px; }
+        .main-button:hover { background: #7722ff; letter-spacing: 1px; transform: scale(1.05); }
+        
+        /* SECȚIUNEA SEO */
+        .seo-section { max-width: 1000px; margin: 60px auto; padding: 40px; background: #111; border-radius: 25px; border: 1px dotted #333; }
+        .seo-section h2 { color: var(--primary); margin-bottom: 20px; }
+        .seo-section p { color: #888; line-height: 1.8; margin-bottom: 15px; font-size: 0.95rem; }
         
         footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #1a1a1a; font-size: 0.9rem; }
     </style>
@@ -55,7 +63,7 @@
     <div class="merchant-card">
         <div class="status-badge">CONEXIUNE ACTIVĂ</div>
         <h2>Bazarul Online</h2>
-        <p>Acces direct la mii de categorii de produse cu prețuri de depozit. Sistemul Gentry AI monitorizează stocurile în timp real.</p>
+        <p class="desc">Acces direct la mii de categorii de produse cu prețuri de depozit. Sistemul monitorizează stocurile în timp real.</p>
         <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/" 
            target="_blank" 
            class="main-button">
@@ -63,20 +71,37 @@
         </a>
     </div>
 
-    <div class="merchant-card" style="opacity: 0.7;">
-        <div class="status-badge" style="color: #ffb74d; border-color: #ffb74d; background: none;">SCANARE...</div>
-        <h2>Fashion & Style</h2>
-        <p>Algoritmul Gentry AI procesează parteneriatele cu Fashion Days și Bookzone. Revenim imediat.</p>
-        <a href="#" class="main-button" style="background: #333; cursor: not-allowed;">ÎN ANALIZĂ</a>
+    <div class="merchant-card">
+        <div class="status-badge">CONEXIUNE ACTIVĂ</div>
+        <h2>Spring Farma</h2>
+        <p class="desc">Cele mai bune oferte pentru sănătate, vitamine și dermocosmetice premium cu verificare Gentry AI.</p>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https%253A//www.springfarma.com" 
+           target="_blank" 
+           class="main-button" style="background-color: #2e7d32;">
+           VEZI OFERTELE PHARMA
+        </a>
     </div>
 
-    <div class="merchant-card" style="opacity: 0.7;">
+    <div class="merchant-card" style="opacity: 0.6;">
         <div class="status-badge" style="color: #ffb74d; border-color: #ffb74d; background: none;">SCANARE...</div>
-        <h2>Beauty & Health</h2>
-        <p>Monitorizăm ofertele de lux de la BestValue și produsele farmaceutice Spring Farma.</p>
+        <h2>Fashion & Style</h2>
+        <p class="desc">Algoritmul procesează parteneriatele pentru modă și cărți. Revenim imediat cu link-urile verificate.</p>
         <a href="#" class="main-button" style="background: #333; cursor: not-allowed;">ÎN ANALIZĂ</a>
     </div>
 </div>
+
+<section class="seo-section">
+    <h2>Gentry AI Technology - Shopping Inteligent în România</h2>
+    <p>
+        Sistemul <strong>Gentry AI</strong> revoluționează modul în care utilizatorii accesează reducerile online. Prin algoritmul nostru de scanare, filtrăm cele mai bune oportunități de la magazine de renume precum <strong>Bazarul Online</strong>, <strong>Spring Farma</strong>, <strong>Fashion Days</strong> și multe altele.
+    </p>
+    <p>
+        Scopul nostru este să oferim o poartă de acces sigură către <strong>promoții la electronice</strong>, <strong>oferte la cosmetice</strong> și <strong>reduceri la îmbrăcăminte</strong>. Colaborăm prin platforma 2Performant pentru a asigura transparență și cele mai bune prețuri de pe piață.
+    </p>
+    <p>
+        Dacă ești în căutarea unor <strong>vitamine și suplimente</strong> la prețuri corecte sau dorești să explorezi un mall online diversificat, Gentry AI Technology te direcționează instantaneu către stocurile reale.
+    </p>
+</section>
 
 <footer>
     <p>&copy; 2026 GENTRY AI TECHNOLOGY. Toate drepturile rezervate.<br>Optimizat pentru rețeaua de afiliere 2Performant.</p>
