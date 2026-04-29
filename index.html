@@ -3,128 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <title>Gentry AI - Concierge Digital</title>
+    <title>Gentry AI - Monitorizare Prețuri Smart</title>
     <style>
-        body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .phone-container { width: 360px; height: 780px; background: #111; border: 8px solid #222; border-radius: 40px; position: relative; padding: 20px; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .logo { text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 5px; color: #d4af37; margin-top: 20px; margin-bottom: 25px; }
-        input { background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); color: white; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 12px; outline: none; text-align: center; box-sizing: border-box; font-size: 13px; }
-        h2 { font-family: 'Playfair Display', serif; text-align: center; font-size: 18px; margin: 10px 0; color: #fff; }
-        #chat-area { min-height: 60px; font-size: 12px; color: #bbb; text-align: center; padding: 10px; line-height: 1.4; }
-        .action-btn { background: linear-gradient(135deg, #d4af37 0%, #f2d479 100%); color: black; border: none; padding: 15px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
-        
-        /* ZONA DE NOTIFICARI CARE LIPSEA */
-        .alert-section { background: rgba(212, 175, 55, 0.1); border: 1px dashed rgba(212, 175, 55, 0.4); padding: 15px; border-radius: 15px; margin-top: 20px; text-align: center; }
-        .alert-btn { background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 6px 15px; border-radius: 8px; font-size: 10px; cursor: pointer; font-weight: bold; margin-top: 5px; }
-        
-        .wishlist-container { margin-top: 20px; flex-grow: 1; overflow-y: auto; padding-bottom: 10px; }
-        .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 15px; margin-bottom: 12px; position: relative; }
-        .delete-btn { position: absolute; top: 10px; right: 12px; color: #ff4444; cursor: pointer; font-size: 20px; font-weight: bold; }
-        .price-tag { color: #d4af37; font-weight: bold; font-size: 17px; display: block; margin-bottom: 5px; }
-        .buy-btn { display: block; background: rgba(212, 175, 55, 0.1); color: #d4af37; text-align: center; padding: 10px; border-radius: 10px; text-decoration: none; font-size: 11px; border: 1px solid #d4af37; font-weight: bold; }
-        .loader { border: 2px solid rgba(0,0,0,0.1); border-top: 2px solid black; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; display: inline-block; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        :root {
+            --primary: #6200ee;
+            --bg: #0a0a0a;
+            --card: #1e1e1e;
+            --text: #ffffff;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        header { text-align: center; padding: 40px 0; }
+        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
+        .container { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #333; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .price { font-size: 1.5rem; color: #03dac6; margin: 15px 0; }
+        .buy-button { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            text-decoration: none; 
+            padding: 12px 25px; 
+            border-radius: 25px; 
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        .buy-button:hover { opacity: 0.8; }
+        .badge { background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 10px; display: inline-block; }
     </style>
 </head>
 <body>
-    <div class="phone-container">
-        <div class="logo">GENTRY</div>
-        <input type="text" id="userName" placeholder="Numele tău...">
-        <input type="text" id="productLink" placeholder="Lipește link eMAG aici...">
-        <h2 id="welcomeText">Bun venit,</h2>
-        <div id="chat-area"><em>Gentry: Introdu un link pentru a începe.</em></div>
-        <button class="action-btn" id="mainBtn" onclick="runAgent()">Scanează Produsul</button>
 
-        <div class="alert-section">
-            <span style="font-size: 10px; color: #d4af37; font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase;">Alerte Scădere Preț</span>
-            <input type="text" id="userContact" placeholder="Email sau WhatsApp..." style="padding: 10px; font-size: 11px; margin-bottom: 5px;">
-            <button class="alert-btn" onclick="alert('Gentry: Te vom anunța imediat ce prețul scade!')">ACTIVEAZĂ NOTIFICĂRI</button>
-        </div>
+<header>
+    <h1>GENTRY AI</h1>
+    <p>Monitorizăm cele mai bune prețuri pentru tine.</p>
+</header>
 
-        <h4 style="color: #d4af37; font-size: 10px; margin-top: 20px; text-transform: uppercase; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 5px;">Portofoliu Monitorizat</h4>
-        <div id="wishlist" class="wishlist-container"></div>
+<div class="container">
+    <div class="card">
+        <div class="badge">9 Zile Timp de Plată</div>
+        <img src="https://bazarulonline.ro/wp-content/uploads/2023/10/sapun-lichid-gold.jpg" alt="Sapun" style="width:100%; border-radius:10px; max-height:200px; object-fit:contain;">
+        <h3>Săpun Lichid Gentle Gold 500ml</h3>
+        <p>Curățare și hidratare cu aromă premium.</p>
+        <div class="price">Preț Special</div>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/sapun-lichid-gentle-hidratant-gold-500-ml-engros-bax/" 
+           target="_blank" 
+           class="buy-button">
+           CUMPĂRĂ PRIN GENTRY
+        </a>
     </div>
 
-    <script>
-        document.getElementById('userName').addEventListener('input', function() {
-            document.getElementById('welcomeText').innerText = "Bun venit, " + this.value;
-        });
+    <div class="card">
+        <div class="badge">În așteptare aprobare</div>
+        <div style="height:200px; display:flex; align-items:center; justify-content:center; background:#333; border-radius:10px;">
+            <span>Imagine Produs</span>
+        </div>
+        <h3>Produs Fashion / Books</h3>
+        <p>Aici vom pune un produs de la următorul magazin aprobat.</p>
+        <div class="price">-- lei</div>
+        <a href="#" class="buy-button" style="background:#555;">ÎN CURÂND</a>
+    </div>
 
-        window.onload = displayWishlist;
+    <div class="card">
+        <div class="badge">În așteptare aprobare</div>
+        <div style="height:200px; display:flex; align-items:center; justify-content:center; background:#333; border-radius:10px;">
+            <span>Imagine Produs</span>
+        </div>
+        <h3>Produs Health & Beauty</h3>
+        <p>Monitorizăm stocul și prețul pentru tine.</p>
+        <div class="price">-- lei</div>
+        <a href="#" class="buy-button" style="background:#555;">ÎN CURÂND</a>
+    </div>
+</div>
 
-        async function runAgent() {
-            const productUrl = document.getElementById('productLink').value;
-            const chat = document.getElementById('chat-area');
-            const btn = document.getElementById('mainBtn');
-            if (!productUrl) return;
+<footer style="text-align:center; margin-top:50px; color:#666;">
+    <p>&copy; 2026 Gentry AI - Sanda's Affiliate Project</p>
+</footer>
 
-            btn.disabled = true;
-            btn.innerHTML = '<span class="loader"></span> ANALIZĂ...';
-            
-            try {
-                const response = await fetch('https://gentry-ai.onrender.com/analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url: productUrl })
-                });
-                const data = await response.json();
-                if (data.status === "Success") {
-                    saveToWishlist(data.product_name, data.price, productUrl);
-                } else {
-                    handleManual(productUrl);
-                }
-            } catch (e) {
-                handleManual(productUrl);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "Scanează Produsul";
-                document.getElementById('productLink').value = "";
-                displayWishlist();
-            }
-        }
-
-        function handleManual(url) {
-            let n = prompt("Nume produs:");
-            let p = prompt("Preț:");
-            if (n && p) saveToWishlist(n, p, url);
-        }
-
-        function saveToWishlist(name, price, url) {
-            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            let idx = list.findIndex(i => i.url === url);
-            if (idx !== -1) {
-                list[idx].price = price;
-            } else {
-                list.unshift({ name, price, url, verdict: 'PREȚ STABIL', color: '#d4af37' });
-            }
-            localStorage.setItem('gentry_list', JSON.stringify(list));
-        }
-
-        function removeFromList(index) {
-            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            list.splice(index, 1);
-            localStorage.setItem('gentry_list', JSON.stringify(list));
-            displayWishlist();
-        }
-
-        function displayWishlist() {
-            const cont = document.getElementById('wishlist');
-            let list = JSON.parse(localStorage.getItem('gentry_list')) || [];
-            if (list.length === 0) {
-                cont.innerHTML = "<div style='color:#444; font-size:11px; text-align:center; margin-top:20px;'>Portofoliu gol.</div>";
-                return;
-            }
-            cont.innerHTML = list.map((item, i) => `
-                <div class="product-card">
-                    <span class="delete-btn" onclick="removeFromList(${i})">&times;</span>
-                    <strong>${item.name}</strong>
-                    <span class="price-tag">${item.price} lei</span>
-                    <div style="font-size:10px; font-weight:bold; color:${item.color || '#d4af37'}; margin-bottom:10px;">${item.verdict || 'PREȚ STABIL'}</div>
-                    <a href="${item.url}" target="_blank" class="buy-btn">CUMPĂRĂ PRIN GENTRY</a>
-                </div>
-            `).join('');
-        }
-    </script>
 </body>
 </html>
