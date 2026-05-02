@@ -4,48 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gentry AI Technology</title>
-    
     <meta name="p:domain_verify" content="e2f3379e728dfe90a3592bffdc9e26c9"/>
-
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background-color: #050505; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        .logo { color: #7f00ff; font-size: 48px; font-weight: 900; margin-top: 40px; letter-spacing: 2px; }
+        .subtitle { color: #888; margin-bottom: 50px; font-size: 18px; }
+        .container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; width: 90%; max-width: 1200px; }
+        .card { background: #121212; border: 1px solid #222; border-radius: 20px; padding: 40px 20px; width: 320px; text-align: center; position: relative; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: #7f00ff; }
+        .status { background: rgba(0, 255, 200, 0.1); color: #00ffcc; border: 1px solid #00ffcc; font-size: 11px; padding: 4px 12px; border-radius: 20px; position: absolute; top: 20px; right: 20px; font-weight: bold; }
+        .btn { display: block; margin: 30px auto 0; padding: 15px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; width: 80%; font-size: 14px; }
+        .btn-bazar { background: #6600ff; }
+        .btn-pharma { background: #2e7d32; }
+        .btn-petmax { background: #ff8c00; }
+        .alert-section { background: #121212; border: 2px solid #7f00ff; border-radius: 30px; margin: 60px 0; padding: 40px; width: 85%; max-width: 1000px; text-align: center; }
+        .alert-section h2 { color: #00ffcc; font-size: 32px; margin-bottom: 15px; }
+        .form-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        input { background: #000; border: 1px solid #333; color: #fff; padding: 15px 20px; border-radius: 25px; width: 220px; outline: none; }
+        input:focus { border-color: #00ffcc; }
+        .btn-alert { background: #00ffcc; color: #000; border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-alert:hover { background: #fff; transform: scale(1.05); }
+        footer { margin-bottom: 30px; color: #444; font-size: 13px; }
+    </style>
 </head>
 <body>
     <div class="logo">GENTRY AI</div>
     <div class="subtitle">Sistem inteligent de analiză și monitorizare a ofertelor de top</div>
-
     <div class="container">
         <div class="card">
             <span class="status">CONEXIUNE ACTIVĂ</span>
-            <div class="card-content">
-                <h3>Bazarul Online</h3>
-                <p>Mii de produse cu prețuri de depozit. Monitorizare stocuri în timp real.</p>
-                <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=609426f42&redirect_to=https%3A//www.bazarulonline.ro/" class="btn btn-bazar">EXPLOREAZĂ MAGAZINUL</a>
-            </div>
+            <h3>Bazarul Online</h3>
+            <p>Mii de produse cu prețuri de depozit. Monitorizare stocuri în timp real.</p>
+            <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=609426f42&redirect_to=https%3A//www.bazarulonline.ro/" class="btn btn-bazar">EXPLOREAZĂ MAGAZINUL</a>
         </div>
-
         <div class="card">
             <span class="status">CONEXIUNE ACTIVĂ</span>
-            <div class="card-content">
-                <h3>Spring Farma</h3>
-                <p>Sănătate și dermocosmetice. Verificăm cele mai bune prețuri la vitamine.</p>
-                <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=f6874457e&redirect_to=https%3A//www.springfarma.com/" class="btn btn-pharma">VEZI OFERTELE PHARMA</a>
-            </div>
+            <h3>Spring Farma</h3>
+            <p>Sănătate și dermocosmetice. Verificăm cele mai bune prețuri la vitamine.</p>
+            <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=f6874457e&redirect_to=https%3A//www.springfarma.com/" class="btn btn-pharma">VEZI OFERTELE PHARMA</a>
         </div>
-
         <div class="card">
             <span class="status">CONEXIUNE ACTIVĂ</span>
-            <div class="card-content">
-                <h3>Petmax</h3>
-                <p>Hrană și accesorii pentru animale. Economii maxime la brandurile tale.</p>
-                <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=944c68831&redirect_to=https%3A//www.petmax.ro/" class="btn btn-petmax">OFERTE PETSHOP</a>
-            </div>
+            <h3>Petmax</h3>
+            <p>Hrană și accesorii pentru animale. Economii maxime la brandurile preferate.</p>
+            <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=69666014b&unique=944c68831&redirect_to=https%3A//www.petmax.ro/" class="btn btn-petmax">OFERTE PETSHOP</a>
         </div>
     </div>
-
     <div class="alert-section">
         <h2>Activează Alerta de Preț AI</h2>
-        <p>Lasă-ne contactul tău și sistemul Gentry AI te va notifica imediat ce prețul produsului dorit scade!</p>
-        
+        <p>Lasă-ne contactul tău și sistemul Gentry AI te va notifica imediat ce prețul scade!</p>
         <div class="form-container">
             <input type="text" placeholder="Numele tău">
             <input type="email" placeholder="Adresa de Email">
@@ -53,9 +60,6 @@
             <button class="btn-alert">ACTIVEAZĂ ALERTA</button>
         </div>
     </div>
-
-    <footer>
-        © 2024 Gentry AI Technology. Toate drepturile rezervate.
-    </footer>
+    <footer>© 2024 Gentry AI Technology. Toate drepturile rezervate.</footer>
 </body>
 </html>
