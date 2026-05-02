@@ -25,7 +25,11 @@
         .merchant-card { background: var(--card); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid #333; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; }
         .merchant-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(98, 0, 238, 0.2); }
         
+        .card-waiting { opacity: 0.6; border: 1px dashed #444; background: rgba(30, 30, 30, 0.5); }
+        .card-waiting:hover { border-color: #ffb74d; box-shadow: 0 10px 30px rgba(255, 183, 77, 0.1); }
+
         .status-badge { position: absolute; top: 15px; right: 15px; background: rgba(3, 218, 198, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--accent); }
+        .badge-waiting { color: #ffb74d; border-color: #ffb74d; background: rgba(255, 183, 77, 0.05); }
         
         h2 { margin: 20px 0 10px; font-size: 1.5rem; }
         .desc { color: #aaa; line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
@@ -41,13 +45,12 @@
             transition: all 0.3s;
             width: 80%;
             align-self: center;
+            text-align: center;
         }
         .main-button:hover { background: #7722ff; letter-spacing: 1px; transform: scale(1.05); }
+        .btn-waiting { background: #333; cursor: not-allowed; }
         
         .seo-section { max-width: 1000px; margin: 60px auto; padding: 40px; background: #111; border-radius: 25px; border: 1px dotted #333; }
-        .seo-section h2 { color: var(--primary); margin-bottom: 20px; }
-        .seo-section p { color: #888; line-height: 1.8; margin-bottom: 15px; font-size: 0.95rem; }
-        
         footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #1a1a1a; font-size: 0.9rem; }
     </style>
 </head>
@@ -62,49 +65,47 @@
     <div class="merchant-card">
         <div class="status-badge">CONEXIUNE ACTIVĂ</div>
         <h2>Bazarul Online</h2>
-        <p class="desc">Acces direct la mii de categorii de produse cu prețuri de depozit. Sistemul monitorizează stocurile în timp real.</p>
-        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/" 
-           target="_blank" 
-           class="main-button">
-           EXPLOREAZĂ MAGAZINUL
-        </a>
+        <p class="desc">Mii de produse cu prețuri de depozit. Monitorizare stocuri în timp real prin algoritmul Gentry AI.</p>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https%253A//bazarulonline.ro/" target="_blank" class="main-button">EXPLOREAZĂ MAGAZINUL</a>
     </div>
 
     <div class="merchant-card">
         <div class="status-badge">CONEXIUNE ACTIVĂ</div>
         <h2>Spring Farma</h2>
-        <p class="desc">Cele mai bune oferte pentru sănătate, vitamine și dermocosmetice premium cu verificare Gentry AI.</p>
-        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https%253A//www.springfarma.com" 
-           target="_blank" 
-           class="main-button" style="background-color: #2e7d32;">
-           VEZI OFERTELE PHARMA
-        </a>
+        <p class="desc">Sănătate și dermocosmetice premium. Sistemul verifică cele mai bune prețuri la vitamine și suplimente.</p>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https%253A//www.springfarma.com" target="_blank" class="main-button" style="background-color: #2e7d32;">VEZI OFERTELE PHARMA</a>
     </div>
 
     <div class="merchant-card">
         <div class="status-badge">CONEXIUNE ACTIVĂ</div>
         <h2>Petmax</h2>
-        <p class="desc">Hrană și accesorii pentru animalele de companie. Monitorizăm prețurile pentru brandurile tale preferate.</p>
-        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https%253A//www.petmax.ro" 
-           target="_blank" 
-           class="main-button" style="background-color: #ff8f00;">
-           OFERTE PETSHOP
-        </a>
+        <p class="desc">Hrană și accesorii pentru animale. Monitorizăm prețurile brandurilor tale preferate pentru economii maxime.</p>
+        <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https%253A//www.petmax.ro" target="_blank" class="main-button" style="background-color: #ff8f00;">OFERTE PETSHOP</a>
+    </div>
+
+    <div class="merchant-card card-waiting">
+        <div class="status-badge badge-waiting">ÎN ANALIZĂ</div>
+        <h2>Libris & Bookzone</h2>
+        <p class="desc">Sistemul pregătește fluxul de date pentru cele mai citite cărți și manuale școlare.</p>
+        <a href="#" class="main-button btn-waiting">SCANARE PARTENER...</a>
+    </div>
+
+    <div class="merchant-card card-waiting">
+        <div class="status-badge badge-waiting">ÎN ANALIZĂ</div>
+        <h2>BestValue & Elefant</h2>
+        <p class="desc">Monitorizăm integrarea pentru parfumuri originale și produse beauty de lux.</p>
+        <a href="#" class="main-button btn-waiting">ÎN ANALIZĂ...</a>
     </div>
 </div>
 
 <section class="seo-section">
-    <h2>Gentry AI Technology - Shopping Inteligent în România</h2>
-    <p>
-        Sistemul <strong>Gentry AI</strong> revoluționează modul în care utilizatorii accesează reducerile online. Prin algoritmul nostru de scanare, filtrăm cele mai bune oportunități de la magazine de renume precum <strong>Bazarul Online</strong>, <strong>Spring Farma</strong> și <strong>Petmax</strong>.
-    </p>
-    <p>
-        Scopul nostru este să oferim o poartă de acces sigură către <strong>oferte la mâncare de câini și pisici</strong>, <strong>promoții la cosmetice</strong> și <strong>reduceri la produse de depozit</strong>. Colaborăm prin platforma 2Performant pentru a asigura transparență.
-    </p>
+    <h2 style="color: var(--primary);">Gentry AI Technology - Platformă Shopping România</h2>
+    <p>Monitorizăm constant partenerii noștri precum <strong>Bazarul Online</strong>, <strong>Spring Farma</strong> și <strong>Petmax</strong> pentru a vă aduce cele mai sigure oferte direct pe ecran.</p>
+    <p>Prin sistemul nostru de afiliere prin <strong>2Performant</strong>, Gentry AI selectează doar magazinele care respectă standardele de livrare și preț corect.</p>
 </section>
 
 <footer>
-    <p>&copy; 2026 GENTRY AI TECHNOLOGY. Toate drepturile rezervate.<br>Optimizat pentru rețeaua de afiliere 2Performant.</p>
+    <p>&copy; 2026 GENTRY AI TECHNOLOGY. Toate drepturile rezervate.<br>Proiect verificat de Google Search Console.</p>
 </footer>
 
 </body>
