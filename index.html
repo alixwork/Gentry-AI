@@ -15,6 +15,7 @@
         h3 { font-size: 18px; margin: 10px 0; color: #eee; }
         .btn { display: block; margin-top: 15px; padding: 12px; border-radius: 25px; text-decoration: none; color: #fff; font-weight: bold; font-size: 12px; transition: 0.3s; text-align: center; }
         
+        /* Culori butoane comercianți */
         .b-bazar { background: #6600ff; }
         .b-pharma { background: #2e7d32; }
         .b-petmax { background: #ff8c00; }
@@ -25,27 +26,31 @@
         .b-shopika { background: #00bcd4; }
         .b-craftup { background: #ff5722; }
 
+        /* Secțiunea Alertă */
         .alert-box { background: #121212; border: 2px solid #7f00ff; border-radius: 25px; margin: 60px 0; padding: 40px; width: 90%; max-width: 800px; text-align: center; }
-        .alert-box h2 { color: #00ffcc; margin-top: 0; }
-        .form-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-        input { background: #000; border: 1px solid #333; color: #fff; padding: 15px; border-radius: 25px; width: 200px; outline: none; }
-        input:focus { border-color: #00ffcc; }
-        .btn-submit { background: #00ffcc; color: #000; border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .alert-box h2 { color: #00ffcc; margin-top: 0; font-size: 28px; }
+        .form-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .form-container input { background: #000; border: 1px solid #333; color: #fff; padding: 15px 20px; border-radius: 30px; width: 220px; outline: none; font-size: 14px; }
+        .form-container input:focus { border-color: #00ffcc; }
+        .btn-submit { background: #00ffcc; color: #000; border: none; padding: 15px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 14px; }
         .btn-submit:hover { transform: scale(1.05); background: #00e6b8; }
+        
         footer { margin: 40px 0; color: #444; font-size: 12px; }
     </style>
 </head>
 <body>
     <div class="logo">GENTRY AI</div>
-    <div class="subtitle">Analiză avansată și monitorizare prețuri în timp real</div>
+    <div class="subtitle">Analiză avansată și monitorizare prețuri în timp real pentru un shopping inteligent</div>
     
     <div class="container">
         <div class="card"><h3>Bazarul Online</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https://bazarulonline.ro/" class="btn b-bazar">EXPLOREAZĂ</a></div>
         <div class="card"><h3>Spring Farma</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https://www.springfarma.com" class="btn b-pharma">VEZI OFERTE</a></div>
         <div class="card"><h3>Petmax</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https://www.petmax.ro" class="btn b-petmax">SHOP PET</a></div>
+        
         <div class="card"><h3>Luxury Beauty</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=dc53a764d&redirect_to=https://www.luxurybeauty.ro" class="btn b-luxury">COSMETICE LUX</a></div>
         <div class="card"><h3>Editura Corint</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=8dad9830f&redirect_to=https://edituracorint.ro/" class="btn b-corint">CĂRȚI</a></div>
         <div class="card"><h3>Picadili</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d404a783d&redirect_to=https://picadili.ro" class="btn b-picadili">FASHION</a></div>
+        
         <div class="card"><h3>Minunea Naturii</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=2fa33259c&redirect_to=https://www.minuneanaturii.ro/" class="btn b-minunea">PRODUSE BIO</a></div>
         <div class="card"><h3>Shopika</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=94d8b3e3b&redirect_to=https://shopika.ro/" class="btn b-shopika">OFERTE SHOPIKA</a></div>
         <div class="card"><h3>Craftup</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=401ba6e73&redirect_to=https://craftup.ro/" class="btn b-craftup">VEZI CRAFTUP</a></div>
@@ -53,5 +58,14 @@
 
     <div class="alert-box">
         <h2>Activează Alerta de Preț AI</h2>
-        <p>Te notificăm automat când prețul scade la partenerii noștri!</p>
-        <form action="https://
+        <p>Te notificăm pe email imediat ce prețul scade la partenerii noștri!</p>
+        <form action="https://formspree.io/f/mqaeawza" method="POST" class="form-container">
+            <input type="text" name="nume" placeholder="Numele tău" required>
+            <input type="email" name="_replyto" placeholder="Adresa de email" required>
+            <button type="submit" class="btn-submit">ACTIVEAZĂ ACUM</button>
+        </form>
+    </div>
+
+    <footer>© 2024 Gentry AI Technology. Toate drepturile rezervate.</footer>
+</body>
+</html>
