@@ -19,10 +19,8 @@
         header { width: 100%; padding: 40px 20px; text-align: center; background: white; border-bottom: 1px solid #eee; }
         .logo { color: var(--accent); font-size: 38px; font-weight: 800; letter-spacing: 2px; }
         
-        /* Mesajul Sandei - Factorul Uman */
         .intro-personal { background: #f0f4e8; padding: 20px; border-radius: 20px; max-width: 700px; margin: 30px 20px; border-left: 5px solid var(--accent); font-style: italic; font-size: 16px; color: #444; }
 
-        /* Oferta Zilei - Cârligul de Vânzare */
         .deal-of-the-day { background: white; border: 2px dashed var(--secondary); border-radius: 25px; padding: 30px; max-width: 900px; width: 90%; margin-bottom: 40px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
         .deal-info { flex: 1; min-width: 250px; }
         .deal-badge { background: var(--highlight); color: white; padding: 5px 15px; border-radius: 50px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
@@ -39,14 +37,27 @@
             border: 1px solid #eee;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
         .promo-tag { position: absolute; top: 10px; right: -20px; background: var(--accent); color: white; padding: 5px 30px; transform: rotate(45deg); font-size: 10px; font-weight: bold; }
         
+        .icon { font-size: 40px; margin-bottom: 15px; display: block; }
         .btn { display: block; padding: 14px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; font-size: 14px; transition: 0.3s; margin-top: 15px; }
-        .b-aronia { background: #800020; } .b-pharma { background: #556b2f; } .b-bazar { background: #6b5b95; }
-        
-        /* Formular de Conversie */
+
+        /* Culori butoane */
+        .b-bazar { background: #6b5b95; }
+        .b-pharma { background: #556b2f; }
+        .b-petmax { background: #a67c52; }
+        .b-aronia { background: #800020; }
+        .b-corint { background: #8b0000; }
+        .b-picadili { background: #d23669; }
+        .b-minunea { background: #2e7d32; }
+        .b-shopika { background: #008b8b; }
+        .b-craftup { background: #e67e22; }
+
         .alert-box { background: var(--accent); color: white; border-radius: 30px; margin: 40px 20px; padding: 50px; max-width: 800px; text-align: center; }
         .alert-box h2 { margin-top: 0; color: #fdfaf5; }
         .form-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 25px; }
@@ -70,32 +81,24 @@
     <div class="deal-of-the-day">
         <div style="font-size: 60px;">🍒</div>
         <div class="deal-info">
-            <div class="deal-badge">RECOMANDAREA GENTRY AI</div>
-            <h3>Aronia Charlottenburg - Pachet Imunitate</h3>
-            <p style="font-size: 14px; color: #555;">Am verificat prețul azi: Cea mai bună ofertă pentru sănătatea ta naturală. Ideal pentru energie zilnică.</p>
-            <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9abbbd0e9&redirect_to=https%3A//aronia-charlottenburg.ro/" style="color: var(--secondary); font-weight: bold; text-decoration: none;">Profită de Reducere aici →</a>
+            <div class="deal-badge">OFERTA ZILEI</div>
+            <h3>Aronia Charlottenburg - Sănătate Bio</h3>
+            <p style="font-size: 14px; color: #555;">Am verificat prețul azi: Cea mai bună ofertă pentru imunitate naturală.</p>
+            <a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9abbbd0e9&redirect_to=https%3A//aronia-charlottenburg.ro/" style="color: var(--secondary); font-weight: bold; text-decoration: none;">Vezi Reducerea Aici →</a>
         </div>
     </div>
     
     <div class="container">
-        <div class="card"><div class="promo-tag">BIO</div><span style="font-size: 40px;">🌿</span><h3>Spring Farma</h3><p style="font-size: 14px; color: #777;">Sănătate și îngrijire la prețuri corecte.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https://www.springfarma.com" class="btn b-pharma">VEZI FARMACIA</a></div>
+        <div class="card"><div class="promo-tag">OFERTĂ</div><span class="icon">🛒</span><h3>Bazarul Online</h3><p style="font-size: 14px; color: #777;">Totul pentru casa ta, la prețuri accesibile.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https://bazarulonline.ro/" class="btn b-bazar">EXPLOREAZĂ</a></div>
         
-        <div class="card"><div class="promo-tag">-15%</div><span style="font-size: 40px;">🛒</span><h3>Bazarul Online</h3><p style="font-size: 14px; color: #777;">Totul pentru casă, verificat de noi.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https://bazarulonline.ro/" class="btn b-bazar">EXPLOREAZĂ</a></div>
+        <div class="card"><div class="promo-tag">BIO</div><span class="icon">🌿</span><h3>Spring Farma</h3><p style="font-size: 14px; color: #777;">Sănătate și îngrijire la prețuri de depozit.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https://www.springfarma.com" class="btn b-pharma">VEZI OFERTE</a></div>
         
-        <div class="card"><div class="promo-tag">TOP</div><span style="font-size: 40px;">🐾</span><h3>Petmax</h3><p style="font-size: 14px; color: #777;">Răsfăț premium pentru animalele tale.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https://www.petmax.ro" class="btn b-pharma" style="background: #a67c52;">PRODUSE PET</a></div>
-    </div>
+        <div class="card"><div class="promo-tag">PETS</div><span class="icon">🐾</span><h3>Petmax</h3><p style="font-size: 14px; color: #777;">Hrană și răsfăț pentru prietenii necuvântători.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https://www.petmax.ro" class="btn b-petmax">SHOP PET</a></div>
 
-    <div class="alert-box">
-        <h2>Descarcă Gratuit: "Ghidul de Shopping Inteligent"</h2>
-        <p>Află cum să economisești până la 30% lunar + Alerte VIP când scad prețurile.</p>
-        <form action="https://formsubmit.co/gentry.ai.office1526@gmail.com" method="POST" class="form-container">
-            <input type="text" name="name" placeholder="Numele tău" required>
-            <input type="email" name="email" placeholder="Adresa de email" required>
-            <button type="submit" class="btn-submit">VREAU GHIDUL</button>
-        </form>
-    </div>
+        <div class="card"><div class="promo-tag">CĂRȚI</div><span class="icon">📚</span><h3>Editura Corint</h3><p style="font-size: 14px; color: #777;">Lecturi captivante pentru toate vârstele.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=8dad9830f&redirect_to=https://edituracorint.ro/" class="btn b-corint">LECTURĂ</a></div>
+        
+        <div class="card"><div class="promo-tag">MODĂ</div><span class="icon">👗</span><h3>Picadili</h3><p style="font-size: 14px; color: #777;">Stil și eleganță în fiecare zi.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d404a783d&redirect_to=https://picadili.ro" class="btn b-picadili">FASHION</a></div>
+        
+        <div class="card"><div class="promo-tag">NATURAL</div><span class="icon">🍯</span><h3>Minunea Naturii</h3><p style="font-size: 14px; color: #777;">Remedii și produse BIO pentru sănătate.</p><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=2fa33259c&redirect_to=https://www.minuneanaturii.ro/" class="btn b-minunea">PRODUSE BIO</a></div>
 
-    <footer>© 2024 Gentry AI Technology | De la om la om.</footer>
-
-</body>
-</html>
+        <div class="card"><div class="promo-tag">CADOURI</div><span class="icon">🎁</span><h3>Shopika</h3><p style="font-size: 14px; color: #777;">Branduri iubite la prețuri reduse.</p><a href="
