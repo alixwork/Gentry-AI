@@ -6,13 +6,7 @@
     <title>Gentry AI - Shopping Inteligent Automatizat</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #fdfaf5; 
-            --card-bg: #ffffff;
-            --text-main: #2d2d2d;
-            --accent: #556b2f; 
-            --secondary: #b8860b;
-        }
+        :root { --bg-color: #fdfaf5; --card-bg: #ffffff; --text-main: #2d2d2d; --accent: #556b2f; --secondary: #b8860b; }
         body { background: var(--bg-color); color: var(--text-main); font-family: 'Lexend', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
         header { width: 100%; padding: 40px 20px; text-align: center; background: white; border-bottom: 1px solid #eee; }
         .logo { color: var(--accent); font-size: 38px; font-weight: 800; letter-spacing: 2px; }
@@ -28,6 +22,8 @@
         .b-bazar { background: #6b5b95; } .b-pharma { background: #556b2f; } .b-petmax { background: #a67c52; }
         .b-corint { background: #8b0000; } .b-picadili { background: #d23669; } .b-minunea { background: #2e7d32; }
         .b-shopika { background: #008b8b; } .b-craftup { background: #e67e22; }
+        
+        /* CĂSUȚA DE ALERTE - CREIERUL TĂU DIGITAL */
         .automation-box { background: white; border: 4px solid var(--accent); border-radius: 40px; margin: 60px 20px; padding: 50px; max-width: 850px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .automation-box h2 { color: var(--accent); font-size: 30px; margin-top: 0; }
         .automation-box p { font-size: 18px; color: #555; margin-bottom: 30px; }
@@ -39,10 +35,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">GENTRY AI</div>
-        <p style="color: #777;">Sistemul tău de shopping inteligent și automat.</p>
-    </header>
+    <header><div class="logo">GENTRY AI</div><p style="color: #777;">Sistemul tău de shopping inteligent și automat.</p></header>
 
     <div class="intro-personal">
         "Bună! Sunt Sanda. Am ales cei mai buni parteneri pentru tine. Activează alertele de mai jos și lasă Gentry AI să caute reducerile în locul tău!"
@@ -53,8 +46,10 @@
         <div class="card"><div class="promo-tag">ORGANIC</div><span class="icon">🥗</span><h3>Obio</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=48a30b7c9&redirect_to=https%3A//www.obio.ro" class="btn b-obio">GĂTEȘTE BIO</a></div>
         <div class="card"><div class="promo-tag">SĂNĂTATE</div><span class="icon">💊</span><h3>Prime Pharma</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=b1c706fc9&redirect_to=https%3A//primepharma.ro" class="btn b-prime">OFERTE FARMACIE</a></div>
         <div class="card"><div class="promo-tag">PUR</div><span class="icon">🍯</span><h3>Manuka Shop</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9659b7651&redirect_to=https%3A//manukashop.ro/" class="btn b-manuka">MIERE MANUKA</a></div>
-        <div class="card"><div class="promo-tag">NATURIST</div><span class="icon">🍏</span><h3>Vegis</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=861f9e301&redirect_to=https%3A//vegis.ro/" class="btn b-vegis">SHOP VEGIS</a></div>
+        <div class="card"><div class="promo-tag">NATURIST</div><span class="icon">🍏</span><h3>Vegis</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=861f9e301&redirect_to=https%3A//vegis.ro/" class="btn b-vegis">SHOP NATURIST</a></div>
         <div class="card"><div class="promo-tag">DETOX</div><span class="icon">🍒</span><h3>Aronia</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9abbbd0e9&redirect_to=https%3A//aronia-charlottenburg.ro/" class="btn b-aronia">SUCURI BIO</a></div>
         <div class="card"><div class="promo-tag">CASĂ</div><span class="icon">🛒</span><h3>Bazarul Online</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https://bazarulonline.ro/" class="btn b-bazar">EXPLOREAZĂ</a></div>
         <div class="card"><div class="promo-tag">FARMA</div><span class="icon">🌿</span><h3>Spring Farma</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https://www.springfarma.com" class="btn b-pharma">VEZI REDUCERI</a></div>
-        <div class="card"><div class="promo-tag">PETS</div><span class="icon">🐾</span><h3>Petmax</h3><a href="https://
+        <div class="card"><div class="promo-tag">PETS</div><span class="icon">🐾</span><h3>Petmax</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https://www.petmax.ro" class="btn b-petmax">SHOP PET</a></div>
+        <div class="card"><span class="icon">📚</span><h3>Editura Corint</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=8dad9830f&redirect_to=https://edituracorint.ro/" class="btn b-corint">LECTURĂ</a></div>
+        <div class="card"><span class="icon">👗</span><h3>Picadili</h3><a href="
