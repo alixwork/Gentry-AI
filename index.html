@@ -11,46 +11,78 @@
         header { width: 100%; padding: 40px 20px; text-align: center; background: white; border-bottom: 1px solid #eee; }
         .logo { color: var(--accent); font-size: 38px; font-weight: 800; letter-spacing: 2px; }
         .intro-personal { background: #f0f4e8; padding: 25px; border-radius: 25px; max-width: 800px; margin: 30px 20px; border-left: 6px solid var(--accent); font-style: italic; font-size: 17px; color: #444; line-height: 1.6; text-align: center; }
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; width: 95%; margin-bottom: 50px; }
-        .card { background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; position: relative; overflow: hidden; }
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; width: 95%; margin-bottom: 50px; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); }
         .promo-tag { position: absolute; top: 10px; right: -20px; background: var(--accent); color: white; padding: 5px 30px; transform: rotate(45deg); font-size: 10px; font-weight: bold; }
         .icon { font-size: 40px; margin-bottom: 10px; display: block; }
-        .btn { display: block; padding: 12px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; font-size: 13px; transition: 0.3s; margin-top: 15px; }
+        .btn { display: block; padding: 12px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; font-size: 13px; transition: 0.3s; margin-top: auto; }
         
-        /* Culori Butoane Parteneri */
+        /* Culori Butoane */
         .b-botaniq { background: #4a7c59; } .b-obio { background: #92a41d; } .b-prime { background: #3b5998; }
         .b-manuka { background: #d4af37; } .b-vegis { background: #67923d; } .b-aronia { background: #800020; }
         .b-bazar { background: #6b5b95; } .b-pharma { background: #556b2f; } .b-petmax { background: #a67c52; }
         .b-corint { background: #8b0000; } .b-picadili { background: #d23669; } .b-minunea { background: #2e7d32; }
-        .b-shopika { background: #008b8b; } .b-craftup { background: #e67e22; } .b-spring { background: #4169e1; }
+        .b-shopika { background: #008b8b; } .b-craftup { background: #e67e22; } .b-spring { background: #4169e1; } .b-libris { background: #f39c12; }
 
-        /* Sectiunea de Alerte */
-        .automation-box { background: white; border: 4px solid var(--accent); border-radius: 40px; margin: 40px 20px; padding: 40px; max-width: 850px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .automation-box h2 { color: var(--accent); font-size: 28px; margin-bottom: 10px; }
-        .form-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .form-container input { background: #fdfaf5; border: 1px solid #ddd; padding: 15px 25px; border-radius: 40px; width: 220px; font-size: 16px; outline: none; }
-        .btn-submit { background: var(--secondary); color: white; border: none; padding: 15px 40px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        
+        /* SECTIUNE ALERTE - RECONSTRUITA SA FIE VIZIBILA */
+        .automation-box { 
+            background: #ffffff !important; 
+            border: 5px solid var(--accent) !important; 
+            border-radius: 40px; 
+            margin: 50px 20px; 
+            padding: 40px; 
+            max-width: 700px; 
+            width: 90%; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: block !important;
+            visibility: visible !important;
+        }
+        .automation-box h2 { color: var(--accent); margin-bottom: 15px; }
+        .form-container { 
+            display: flex !important; 
+            flex-direction: column !important; 
+            align-items: center !important; 
+            gap: 15px; 
+            margin-top: 25px;
+        }
+        .form-container input { 
+            width: 100%; 
+            max-width: 350px; 
+            padding: 15px 20px; 
+            border-radius: 30px; 
+            border: 2px solid #ddd; 
+            font-size: 16px;
+            display: block !important;
+        }
+        .btn-submit { 
+            background: var(--secondary); 
+            color: white; 
+            border: none; 
+            padding: 15px 60px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
         footer { padding: 40px; color: #999; font-size: 13px; text-align: center; }
     </style>
 </head>
 <body>
-    <header><div class="logo">GENTRY AI</div><p>Sanda prezintă: Shopping inteligent automatizat.</p></header>
-    <div class="intro-personal">"Bună! Sunt Sanda. Am ales 15 parteneri de top pentru tine. Activează alertele de mai jos și lasă Gentry AI să găsească reducerile în locul tău!"</div>
+    <header><div class="logo">GENTRY AI</div><p>Shopping inteligent automatizat de Sanda.</p></header>
+    <div class="intro-personal">"Bună! Sunt Sanda. Am ales 16 parteneri de încredere pentru tine. Activează alertele și lasă Gentry AI să găsească reducerile în locul tău!"</div>
     
     <div class="container">
         <div class="card"><div class="promo-tag">BIO</div><span class="icon">🌿</span><h3>Botaniq</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=fcc86a8dc&redirect_to=https%3A//www.botaniq.ro/" class="btn b-botaniq">VEZI PRODUSE</a></div>
         <div class="card"><div class="promo-tag">BIO</div><span class="icon">🥗</span><h3>Obio</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=48a30b7c9&redirect_to=https%3A//www.obio.ro" class="btn b-obio">GĂTEȘTE BIO</a></div>
         <div class="card"><div class="promo-tag">HEALTH</div><span class="icon">💊</span><h3>Prime Pharma</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=b1c706fc9&redirect_to=https%3A//primepharma.ro" class="btn b-prime">FARMACIE</a></div>
-        
         <div class="card"><div class="promo-tag">PUR</div><span class="icon">🍯</span><h3>Manuka Shop</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9659b7651&redirect_to=https%3A//manukashop.ro/" class="btn b-manuka">MIERE</a></div>
         <div class="card"><div class="promo-tag">VEGAN</div><span class="icon">🍏</span><h3>Vegis</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=861f9e301&redirect_to=https%3A//vegis.ro/" class="btn b-vegis">SHOP VEGIS</a></div>
         <div class="card"><div class="promo-tag">DETOX</div><span class="icon">🍒</span><h3>Aronia</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9abbbd0e9&redirect_to=https%3A//aronia-charlottenburg.ro/" class="btn b-aronia">SUCURI BIO</a></div>
-        
         <div class="card"><div class="promo-tag">BOOKS</div><span class="icon">📚</span><h3>Editura Corint</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=8dad9830f&redirect_to=https%3A//edituracorint.ro/" class="btn b-corint">LECTURĂ</a></div>
         <div class="card"><div class="promo-tag">STYLE</div><span class="icon">👗</span><h3>Picadili</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d404a783d&redirect_to=https%3A//picadili.ro" class="btn b-picadili">FASHION</a></div>
         <div class="card"><div class="promo-tag">NATURAL</div><span class="icon">🐝</span><h3>Minunea Naturii</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=2fa33259c&redirect_to=https%3A//www.minuneanaturii.ro/" class="btn b-minunea">EXPLOREAZĂ</a></div>
-        
         <div class="card"><div class="promo-tag">SMART</div><span class="icon">🎁</span><h3>Shopika</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=94d8b3e3b&redirect_to=https%3A//shopika.ro/" class="btn b-shopika">OFERTE SMART</a></div>
-        <div class="card"><div class="promo-tag">DIY</div><span class="icon">🎨</span><h3>Craftup</h3><a href="
+        <div class="card"><div class="promo-tag">DIY</div><span class="icon">🎨</span><h3>Craftup</h3><a href="https://event.2perform
