@@ -12,67 +12,27 @@
         .logo { color: var(--accent); font-size: 38px; font-weight: 800; letter-spacing: 2px; }
         .intro-personal { background: #f0f4e8; padding: 25px; border-radius: 25px; max-width: 800px; margin: 30px 20px; border-left: 6px solid var(--accent); font-style: italic; font-size: 17px; color: #444; line-height: 1.6; text-align: center; }
         .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; width: 95%; margin-bottom: 50px; }
-        .card { background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 220px; }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); }
         .promo-tag { position: absolute; top: 10px; right: -20px; background: var(--accent); color: white; padding: 5px 30px; transform: rotate(45deg); font-size: 10px; font-weight: bold; }
         .icon { font-size: 40px; margin-bottom: 10px; display: block; }
-        .btn { display: block; padding: 12px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; font-size: 13px; transition: 0.3s; margin-top: auto; }
+        .btn { display: block; padding: 12px; border-radius: 30px; text-decoration: none; color: #fff; font-weight: bold; font-size: 13px; margin-top: auto; }
         
-        /* Culori Butoane */
         .b-botaniq { background: #4a7c59; } .b-obio { background: #92a41d; } .b-prime { background: #3b5998; }
         .b-manuka { background: #d4af37; } .b-vegis { background: #67923d; } .b-aronia { background: #800020; }
-        .b-bazar { background: #6b5b95; } .b-pharma { background: #556b2f; } .b-petmax { background: #a67c52; }
         .b-corint { background: #8b0000; } .b-picadili { background: #d23669; } .b-minunea { background: #2e7d32; }
-        .b-shopika { background: #008b8b; } .b-craftup { background: #e67e22; } .b-spring { background: #4169e1; } .b-libris { background: #f39c12; }
+        .b-shopika { background: #008b8b; } .b-craftup { background: #e67e22; } .b-petmax { background: #a67c52; }
+        .b-bazar { background: #6b5b95; } .b-spring { background: #4169e1; } .b-libris { background: #f39c12; }
 
-        /* SECTIUNE ALERTE - RECONSTRUITA SA FIE VIZIBILA */
-        .automation-box { 
-            background: #ffffff !important; 
-            border: 5px solid var(--accent) !important; 
-            border-radius: 40px; 
-            margin: 50px 20px; 
-            padding: 40px; 
-            max-width: 700px; 
-            width: 90%; 
-            text-align: center; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: block !important;
-            visibility: visible !important;
-        }
-        .automation-box h2 { color: var(--accent); margin-bottom: 15px; }
-        .form-container { 
-            display: flex !important; 
-            flex-direction: column !important; 
-            align-items: center !important; 
-            gap: 15px; 
-            margin-top: 25px;
-        }
-        .form-container input { 
-            width: 100%; 
-            max-width: 350px; 
-            padding: 15px 20px; 
-            border-radius: 30px; 
-            border: 2px solid #ddd; 
-            font-size: 16px;
-            display: block !important;
-        }
-        .btn-submit { 
-            background: var(--secondary); 
-            color: white; 
-            border: none; 
-            padding: 15px 60px; 
-            border-radius: 30px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        footer { padding: 40px; color: #999; font-size: 13px; text-align: center; }
+        /* FORMULAR REPARAT - VIZIBIL MEREU */
+        .automation-box { background: #fff; border: 4px solid var(--accent); border-radius: 40px; margin: 40px 20px; padding: 40px; max-width: 600px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .automation-box input { width: 80%; padding: 15px; margin: 10px 0; border-radius: 25px; border: 2px solid #ddd; font-size: 16px; outline: none; display: inline-block !important; }
+        .btn-submit { background: var(--secondary); color: white; border: none; padding: 15px 50px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 18px; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <header><div class="logo">GENTRY AI</div><p>Shopping inteligent automatizat de Sanda.</p></header>
-    <div class="intro-personal">"Bună! Sunt Sanda. Am ales 16 parteneri de încredere pentru tine. Activează alertele și lasă Gentry AI să găsească reducerile în locul tău!"</div>
+    <header><div class="logo">GENTRY AI</div><p>De la om la om. Automatizat de Sanda.</p></header>
+    <div class="intro-personal">"Bună! Sunt Sanda. Am ales 16 parteneri premium. Activează alertele și lasă Gentry AI să lucreze pentru tine!"</div>
     
     <div class="container">
         <div class="card"><div class="promo-tag">BIO</div><span class="icon">🌿</span><h3>Botaniq</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=fcc86a8dc&redirect_to=https%3A//www.botaniq.ro/" class="btn b-botaniq">VEZI PRODUSE</a></div>
@@ -85,4 +45,24 @@
         <div class="card"><div class="promo-tag">STYLE</div><span class="icon">👗</span><h3>Picadili</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d404a783d&redirect_to=https%3A//picadili.ro" class="btn b-picadili">FASHION</a></div>
         <div class="card"><div class="promo-tag">NATURAL</div><span class="icon">🐝</span><h3>Minunea Naturii</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=2fa33259c&redirect_to=https%3A//www.minuneanaturii.ro/" class="btn b-minunea">EXPLOREAZĂ</a></div>
         <div class="card"><div class="promo-tag">SMART</div><span class="icon">🎁</span><h3>Shopika</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=94d8b3e3b&redirect_to=https%3A//shopika.ro/" class="btn b-shopika">OFERTE SMART</a></div>
-        <div class="card"><div class="promo-tag">DIY</div><span class="icon">🎨</span><h3>Craftup</h3><a href="https://event.2perform
+        <div class="card"><div class="promo-tag">DIY</div><span class="icon">🎨</span><h3>Craftup</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=401ba6e73&redirect_to=https%3A//craftup.ro/" class="btn b-craftup">ART & CRAFT</a></div>
+        <div class="card"><div class="promo-tag">PETS</div><span class="icon">🐾</span><h3>Petmax</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=07e65acfe&redirect_to=https://www.petmax.ro" class="btn b-petmax">ANIMALE</a></div>
+        <div class="card"><div class="promo-tag">SHOP</div><span class="icon">🛒</span><h3>Bazarul Online</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=d5075b651&redirect_to=https://bazarulonline.ro/" class="btn b-bazar">BAZAR</a></div>
+        <div class="card"><div class="promo-tag">FARMA</div><span class="icon">🏥</span><h3>Spring Farma</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=1ec3596e6&redirect_to=https://www.springfarma.com" class="btn b-spring">SPRING</a></div>
+        <div class="card"><div class="promo-tag">BOOKS</div><span class="icon">📖</span><h3>Libris</h3><a href="https://event.2performant.com/events/click?ad_type=quicklink&aff_code=dd92c5d08&unique=9a6f02fef&redirect_to=https%3A//www.libris.ro" class="btn b-libris">CĂRȚI LIBRIS</a></div>
+        <div class="card"><div class="promo-tag">INFO</div><span class="icon">✨</span><h3>Gentry Choice</h3><a href="#" class="btn b-pharma">ÎN CURÂND</a></div>
+    </div>
+
+    <div class="automation-box">
+        <h2>Nu pierde nicio reducere!</h2>
+        <p>Introdu email-ul tău pentru alerte automate:</p>
+        <form action="https://850565d8.sibforms.com/serve/MUIFAHWlE6He25cczF5cbbf-9B_D8bZ-bb1OMcbCVQ4wnnMKK_JW2Cz6xhRlVngYdDwsp4LurheyxLRuZB3jukrKKOg7NA-Vt6jU42zj535S7QRjnGsSmDuHvZVDu1a3NWiWzVmjUE5IkjvHeIiZDRAdOSEmdsWs_XgxMYF2bqQSzVQ7rqfSpR179blhgQ4r58xUsptmtehE3rryWQ==" method="POST">
+            <input type="text" name="FIRSTNAME" placeholder="Numele tău" required>
+            <input type="email" name="EMAIL" placeholder="Email-ul tău" required>
+            <button type="submit" class="btn-submit">ACTIVEAZĂ ALERTELE</button>
+        </form>
+    </div>
+
+    <footer>© 2024 Gentry AI | Creat de Alexandra Bondac.</footer>
+</body>
+</html>
